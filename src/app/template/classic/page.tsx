@@ -2,7 +2,21 @@
 import { AnimatePresence, motion } from "motion/react"
 import React, { useState, useEffect } from 'react';
 import { merienda, great, roboto, inter, plus_jakarta_sans, cookie } from '@/font/fonts';
+import Masonry from "react-masonry-css";
 
+const imageUrls = [
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866",
+];
+
+const breakpointColumnsObj = {
+    default: 3,
+    768: 2,
+    480: 1,
+};
 
 export default function Home() {
 
@@ -224,22 +238,24 @@ export default function Home() {
                                     ></div>
                                     <div className="relative z-10 py-20 text-black text-center">
                                         <h1 className={`${merienda.className} text-3xl`}>Wedding Gallery</h1>
-                                        <p className="text-sm text-warp text-balance mx-3 tracking-tighter">“Dengan Memohon Rahmat Dan Ridho Dari Allah SWT. Kami Bermaksud Menyelenggarakan Acara
-                                            Pernikahan Kami"</p>
-                                        <img src="https://kumengundangmu.web.id/wp-content/uploads/2025/05/Asri-Fajar-1.jpg" className="h-[70%] w-[40%] object-cover rounded-2xl shadow-md mx-auto my-5" />
-                                        <div className="my-3">
-                                            <div className="font-bold">Anak Kedelapan dari :</div>
-                                            <p>Bpk. Carmad & Ibu Karsinah</p>
-                                        </div>
-                                        <div className="my-3">
-                                            <h1 className={`${merienda.className} text-2xl`}>&</h1>
-                                        </div>
-                                        <img src="https://kumengundangmu.web.id/wp-content/uploads/2025/05/Asri-Fajar-1.jpg" className="h-[70%] w-[40%] object-cover rounded-2xl shadow-md mx-auto my-5" />
-                                        <div className="my-3">
-                                            <h1 className={`${merienda.className} text-2xl`}>Muhamad Fajarudin</h1>
-                                            <div className="font-bold">Anak Kedelapan dari :</div>
-                                            <p>Bpk. Carmad & Ibu Karsinah</p>
-                                        </div>
+                                        <Masonry
+                                            breakpointCols={breakpointColumnsObj}
+                                            className="my-masonry-grid"
+                                            columnClassName="my-masonry-grid_column"
+                                        >
+                                            {imageUrls.map((url, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="overflow-hidden rounded-lg shadow-md mb-4"
+                                                >
+                                                    <img
+                                                        src={url}
+                                                        alt={`Image ${index}`}
+                                                        className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </Masonry>
                                     </div>
                                 </div>
                                 <div className="relative" id="gift">
@@ -342,8 +358,9 @@ export default function Home() {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-b-lg z-10"></div>
                     <iframe
                         src="/template/classic"
-                        className="w-[105%] h-full border-none"
+                        className="w-[100%] h-full border-none"
                         sandbox="allow-same-origin allow-scripts allow-forms"
+                    // scrolling="no"
                     ></iframe>
                 </div>
             </div>
