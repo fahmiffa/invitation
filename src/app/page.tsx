@@ -1,6 +1,6 @@
 'use client';
 import { AnimatePresence, motion } from "motion/react"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, } from 'react';
 import { merienda, roboto, inter, plus_jakarta_sans, cookie } from '@/font/fonts';
 import Image from 'next/image';
 
@@ -16,6 +16,8 @@ const imageUrls = [
 ];
 
 export default function Home() {
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
     const [config, setConfig] = useState<any>(null);
 
@@ -34,6 +36,21 @@ export default function Home() {
                 setConfig(data);
             });
     }, []);
+
+
+
+    const toggleMusic = () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        if (isPlaying) {
+            audio.pause();
+            setIsPlaying(false);
+        } else {
+            audio.play();
+            setIsPlaying(true);
+        }
+    };
 
     useEffect(() => {
         const onScroll = () => setShowNav(window.scrollY > 100);
@@ -93,9 +110,9 @@ export default function Home() {
                         <div className="relative">
                             <div
                                 className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
-                                style={{ backgroundImage: "url('https://kumengundangmu.web.id/wp-content/uploads/2025/04/cvbb-scaled-1-1-6-1.jpg')" }}
+                                style={{ backgroundImage: "url('/open.jpg')" }}
                             ></div>
-                            <div className="relative z-10 h-screen py-30 text-black text-center">
+                            <div className="relative z-10 h-screen py-10 text-black text-center">
                                 <div className="relative w-40 h-60 mx-auto my-3 shadow-md rounded-2xl overflow-hidden">
                                     <Image
                                         src="/home.jpg"
@@ -104,16 +121,19 @@ export default function Home() {
                                         className="object-cover"
                                     />
                                 </div>
-                                <div className={`${merienda.className} flex items-center gap-2 justify-center font-normal text-xl`}>
+                                <div className={`${merienda.className} flex items-center gap-2 justify-center font-normal text-3xl`}>
                                     <div>{config.nick_man}</div>
                                     <div>&</div>
                                     <div>{config.nick_men}</div>
                                 </div>
-                                <p className={`${roboto.className} text-sm font-semibold tracking-tight`}>Kepada Yth. Bapak/Ibu/Saudara/i</p>
-                                <p className="text-xl font-semibold tracking-wider my-3">Tamu</p>
-                                <p className="text-xs text-pretty mb-3">Tanpa Mengurangi Rasa Hormat, Kami Mengundang Anda Untuk Hadir Di Acara Pernikahan Kami.</p>
+                                <p className={`${roboto.className} text-sm font-semibold tracking-tight my-3`}>Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                                <p className="text-xl font-semibold tracking-wider my-2">Tamu</p>
+                                <p className="text-xs text-balance mb-3">Tanpa Mengurangi Rasa Hormat, Kami Mengundang Anda Untuk Hadir Di Acara Pernikahan Kami.</p>
                                 <button
-                                    onClick={() => setOpen(true)}
+                                    onClick={() => {
+                                        setOpen(true)
+                                        toggleMusic
+                                    }}
                                     className="hover:bg-[#7c6533c0] flex items-center font-semibold mx-auto gap-2 bg-[#7C6533] text-white py-2 px-4 rounded-full my-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                                         <path d="M19.5 22.5a3 3 0 0 0 3-3v-8.174l-6.879 4.022 3.485 1.876a.75.75 0 1 1-.712 1.321l-5.683-3.06a1.5 1.5 0 0 0-1.422 0l-5.683 3.06a.75.75 0 0 1-.712-1.32l3.485-1.877L1.5 11.326V19.5a3 3 0 0 0 3 3h15Z" />
@@ -121,7 +141,7 @@ export default function Home() {
                                     </svg>
                                     Buka Undangan
                                 </button>
-                                <div className="text-xs pretty">Mohon maaf apabila ada kesalahan penulisan nama/gelar</div>
+                                <div className="text-xs balance">Mohon maaf apabila ada kesalahan penulisan nama/gelar</div>
 
                             </div>
                         </div>
@@ -139,7 +159,7 @@ export default function Home() {
                                         className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
                                         style={{ backgroundImage: "url('/top.jpg')" }}
                                     ></div>
-                                    <div className="relative z-10 h-screen py-30 text-black text-center">
+                                    <div className="relative z-10 h-screen py-28 text-black text-center">
                                         <h1 className={`${cookie.className} font-bold text-5xl`}>Save The Date</h1>
                                         <p className={`${roboto.className} font-semibold text-balance leading-tight text-xl`}>You're invited <br></br> to the wedding of</p>
                                         <div className="relative w-40 h-48 mx-auto my-3 shadow-md rounded-2xl overflow-hidden">
@@ -151,7 +171,7 @@ export default function Home() {
                                             />
                                         </div>
 
-                                        <div className={`${merienda.className} flex items-center gap-2 justify-center font-normal text-2xl`}>
+                                        <div className={`${merienda.className} flex items-center gap-2 justify-center font-normal text-3xl`}>
                                             <div>{config.nick_man}</div>
                                             <div>&</div>
                                             <div>{config.nick_men}</div>
@@ -181,17 +201,17 @@ export default function Home() {
                                 <div className="relative">
                                     <div
                                         className="absolute top-0 left-0 right-0 w-full h-full"
-                                        style={{ backgroundImage: "url('https://kumengundangmu.web.id/wp-content/uploads/2025/04/cvbb-scaled-1-1-6-1.jpg')" }}
+                                        style={{ backgroundImage: "url('/open.jpg')" }}
                                     ></div>
                                     <div className="relative z-10 py-36 text-black text-center flex items-center justify-center">
-                                        <p className="text-pretty mx-5 font-light tracking-tight">“Dan Diantara Tanda-tanda (Kebesaran) -Nya Ialah Dia Menciptakan Pasangan-pasangan Untukmu Dari Jenismu Sendiri, Agar Kamu Cenderung Dan Merasa Tenteram Kepadanya, Dan Dia Menjadikan Diantaramu Rasa Kasih Dan Sayang. Sungguh, Pada Yang Demikian Itu Benar-benar Terdapat Tanda-tanda (Kebesaran Allah) Bagi Kaum Yang Berfikir”
+                                        <p className="text-balance mx-5">“Dan Diantara Tanda-tanda (Kebesaran) -Nya Ialah Dia Menciptakan Pasangan-pasangan Untukmu Dari Jenismu Sendiri, Agar Kamu Cenderung Dan Merasa Tenteram Kepadanya, Dan Dia Menjadikan Diantaramu Rasa Kasih Dan Sayang. Sungguh, Pada Yang Demikian Itu Benar-benar Terdapat Tanda-tanda (Kebesaran Allah) Bagi Kaum Yang Berfikir”
                                             `{'{Q.S : Ar-Rum : 21 } '}`  </p>
                                     </div>
                                 </div>
                                 <div className="relative" id="couple">
                                     <div
                                         className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
-                                        style={{ backgroundImage: "url('https://kumengundangmu.web.id/wp-content/uploads/2025/04/xxvb-scaled-1-1-1.jpg')" }}
+                                        style={{ backgroundImage: "url('/side.jpg')" }}
                                     ></div>
                                     <div className="relative z-10 py-10 text-black text-center">
                                         <p className="text-warp text-balance mx-3 tracking-tighter">Dengan Memohon Rahmat Dan Ridho Dari Allah SWT. Kami Bermaksud Menyelenggarakan Acara
@@ -231,7 +251,7 @@ export default function Home() {
                                 <div className="relative" id="date">
                                     <div
                                         className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
-                                        style={{ backgroundImage: "url('https://kumengundangmu.web.id/wp-content/uploads/2025/04/cvbb-scaled-1-1-6-1.jpg')" }}
+                                        style={{ backgroundImage: "url('/open.jpg')" }}
                                     ></div>
                                     <div className="relative z-10 py-40 text-black text-center">
                                         <p className="my-3">Insya Allah Acara Akan Dilaksanakan Pada :</p>
@@ -295,7 +315,7 @@ export default function Home() {
                                 <div className="relative" id="gallery">
                                     <div
                                         className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
-                                        style={{ backgroundImage: "url('https://kumengundangmu.web.id/wp-content/uploads/2025/04/xxvb-scaled-1-1-1.jpg')" }}
+                                        style={{ backgroundImage: "url('/side.jpg')" }}
                                     ></div>
                                     <div className="relative z-10 py-10 text-black text-center">
                                         <div className={`${merienda.className} text-3xl`}>Wedding Gallery</div>
@@ -306,7 +326,7 @@ export default function Home() {
                                 <div className="relative" id="gift">
                                     <div
                                         className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
-                                        style={{ backgroundImage: "url('https://kumengundangmu.web.id/wp-content/uploads/2025/04/cvbb-scaled-1-1-6-1.jpg')" }}
+                                        style={{ backgroundImage: "url('/open.jpg')" }}
                                     ></div>
                                     <div className="relative z-10 h-screen py-10 text-black text-center">
                                         <h1 className={`${merienda.className} text-3xl`}>Wedding Gift</h1>
@@ -348,48 +368,78 @@ export default function Home() {
                             </motion.div>
                         </AnimatePresence>
                     )}
-                {showNav &&
-                    <div className={`${isLightboxOpen ? 'z-5' : 'z-50'} fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-[#7C6533] text-white backdrop-blur-md px-4 py-2 rounded-xl shadow-lg`}>
+                {showNav && (
+                    <div className={`${isLightboxOpen ? 'z-5' : 'z-50'} fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4`}>
+                        {/* Tombol Musik */}
+                        <div>
+                            <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
+                            <button
+                                onClick={toggleMusic}
+                                className="bg-[#7C6533] text-white backdrop-blur-md p-2 rounded-full shadow-lg"
+                            >
+                                {isPlaying ? (
+                                    // Pause Icon
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24">
+                                        <path strokeLinecap="round" strokeLinejoin="round"
+                                            d="M6.75 6.75h10.5v10.5H6.75z" />
+                                    </svg>
+                                ) : (
+                                    // Play Icon
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24">
+                                        <path strokeLinecap="round" strokeLinejoin="round"
+                                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
 
-                        <a href="#home" className="p-2 rounded-md transition">
-                            <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fillRule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clipRule="evenodd" />
-                            </svg>
-                        </a>
-
-                        <a href="#couple" className="p-2 rounded-md transition">
-                            <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
-                            </svg>
-                        </a>
-
-                        <a href="#gallery" className="p-2 rounded-md transition">
-                            <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fillRule="evenodd" d="M13 10a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H14a1 1 0 0 1-1-1Z" clipRule="evenodd" />
-                                <path fillRule="evenodd" d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12c0 .556-.227 1.06-.593 1.422A.999.999 0 0 1 20.5 20H4a2.002 2.002 0 0 1-2-2V6Zm6.892 12 3.833-5.356-3.99-4.322a1 1 0 0 0-1.549.097L4 12.879V6h16v9.95l-3.257-3.619a1 1 0 0 0-1.557.088L11.2 18H8.892Z" clipRule="evenodd" />
-                            </svg>
-                        </a>
-
-                        <a href="#gift" className="p-2 rounded-md transition">
-                            <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fillRule="evenodd" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-6.616l-2.88 2.592C8.537 20.461 7 19.776 7 18.477V17H5a2 2 0 0 1-2-2V6Zm4 2a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H7Zm8 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2Zm-8 3a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H7Zm5 0a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Z" clipRule="evenodd" />
-                            </svg>
-
-                        </a>
-
-
+                        {/* Navigasi */}
+                        <div className="flex gap-2 bg-[#7C6533] text-white backdrop-blur-md px-4 py-2 rounded-xl shadow-lg">
+                            {/* Home */}
+                            <a href="#home" className="p-2 rounded-md transition">
+                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fillRule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clipRule="evenodd" />
+                                </svg>
+                            </a>
+                            {/* Couple */}
+                            <a href="#couple" className="p-2 rounded-md transition">
+                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                                </svg>
+                            </a>
+                            {/* Gallery */}
+                            <a href="#gallery" className="p-2 rounded-md transition">
+                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fillRule="evenodd" d="M13 10a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H14a1 1 0 0 1-1-1Z" clipRule="evenodd" />
+                                    <path fillRule="evenodd" d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12c0 .556-.227 1.06-.593 1.422A.999.999 0 0 1 20.5 20H4a2.002 2.002 0 0 1-2-2V6Zm6.892 12 3.833-5.356-3.99-4.322a1 1 0 0 0-1.549.097L4 12.879V6h16v9.95l-3.257-3.619a1 1 0 0 0-1.557.088L11.2 18H8.892Z" clipRule="evenodd" />
+                                </svg>
+                            </a>
+                            {/* Gift */}
+                            <a href="#gift" className="p-2 rounded-md transition">
+                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fillRule="evenodd" d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-6.616l-2.88 2.592C8.537 20.461 7 19.776 7 18.477V17H5a2 2 0 0 1-2-2V6Zm4 2a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H7Zm8 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2Zm-8 3a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H7Zm5 0a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Z" clipRule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-                }
+                )}
+
+
+
+
+
             </div>
             <div className={`${inter.className} hidden md:flex w-full h-screen my-auto justify-evenly bg-gray-100 text-black items-center`}>
                 <div className="leading-0">
                     <p className={`${merienda.className} text-3xl`}>The Wedding Of {config.men} & {config.man}</p>
                 </div>
-                <div className="relative w-[320px] h-[600px] bg-white border-[15px] border-black rounded-[2.5rem] shadow-xl overflow-hidden">
+                <div className="relative w-[320px] h-[620px] bg-white border-[15px] border-black rounded-[2.5rem] shadow-xl overflow-hidden">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-b-lg z-10"></div>
                     <iframe
                         src="/"
-                        className="w-[100%] h-full border-none"
+                        className="w-full h-full border-none"
                         sandbox="allow-same-origin allow-scripts allow-forms"
                         scrolling="no"
                     ></iframe>
