@@ -1,16 +1,14 @@
-.my-masonry-grid {
-  display: -webkit-box; 
-  display: -ms-flexbox; 
+.masonry-grid {
   display: flex;
-  margin-left: -1rem; /* gutter size offset */
+  margin-left: -16px; /* Adjust if needed */
   width: auto;
 }
-.my-masonry-grid_column {
-  padding-left: 1rem; /* gutter size */
+
+.masonry-column {
+  padding-left: 16px;
   background-clip: padding-box;
 }
 
-/* optional spacing override (Tailwind gap-x & gap-y do not apply) */
-.my-masonry-grid_column > div {
-  margin-bottom: 1rem;
+.masonry-column > div {
+  margin-bottom: 16px;
 }

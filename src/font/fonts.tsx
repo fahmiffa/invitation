@@ -42,8 +42,9 @@ const cookie = Cookie({
 });
 
 const roboto = Roboto({
+    subsets: ['latin'],
     variable: '--font-roboto',
     display: 'swap',
 });
 
-export {merienda, great, roboto, imperial, inter, plus_jakarta_sans, cookie}
+export { merienda, great, roboto, imperial, inter, plus_jakarta_sans, cookie }
