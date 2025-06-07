@@ -61,16 +61,47 @@ export default function Home() {
             setSearchValue("Tamu Undangan");
         }
 
+    }, [slug]);
+
+    const toggleMusic = () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        if (isPlaying) {
+            audio.pause();
+            setIsPlaying(false);
+        } else {
+            audio.play();
+            setIsPlaying(true);
+        }
+    };
+
+    const toggleOpen = () => {
+        toggleMusic()
+        setOpen(true)
+    };
+
+    useEffect(() => {
+        const onScroll = () => setShowNav(window.scrollY > 100);
+        window.addEventListener('scroll', onScroll);
+        document.documentElement.style.scrollBehavior = "smooth";
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    useEffect(() => {
         if (isLightboxOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'auto';
         }
 
-        const onScroll = () => setShowNav(window.scrollY > 100);
-        window.addEventListener('scroll', onScroll);
-        document.documentElement.style.scrollBehavior = "smooth";
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isLightboxOpen]);
 
+
+    useEffect(() => {
         if (!config || !config.event_run) return;
 
         const targetDate = new Date(config.event_run + 'T00:00:00');
@@ -93,35 +124,13 @@ export default function Home() {
             setSeconds(Math.floor((distance / 1000) % 60));
         };
 
+
+
         updateCountdown();
         const interval = setInterval(updateCountdown, 1000);
-        clearInterval(interval);
+        return () => clearInterval(interval);
+    }, [config]);
 
-    }, [slug, isLightboxOpen, config]);
-
-    const toggleMusic = () => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        console.log("test")
-
-        if (isPlaying) {
-            audio.pause();
-            setIsPlaying(false);
-        } else {
-            audio.play();
-            setIsPlaying(true);
-        }
-    };
-
-    const toggleOpen = () => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        audio.play();
-        setIsPlaying(true);
-        setOpen(true)
-    };
 
     if (isBe) {
         return <div className="min-h-screen flex items-center justify-center gap-2">
@@ -140,7 +149,7 @@ export default function Home() {
     return (
         <>
             <main className="h-full m-0 overflow-hidden bg-gray-100">
-                <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
+            <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
                 <div className='relative flex items-center'>
                     <div className={`${plus_jakarta_sans.className} md:hidden`}>
                         {!isOpen ?
@@ -403,7 +412,6 @@ export default function Home() {
                                     </motion.div>
                                 </AnimatePresence>
                             )}
-
                         {showNav && (
                             <div className={`${isLightboxOpen ? 'z-5' : 'z-50'} fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4`}>
                                 {/* Tombol Musik */}
