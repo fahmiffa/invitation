@@ -54,52 +54,23 @@ export default function Home() {
         const urlParams = new URLSearchParams(queryString);
         const toParam = urlParams.get('to')?.replace("-", " & ");
 
-        console.log(toParam)
-
         if (toParam) {
             setSearchValue(toParam);
         }
-        else
-        {
+        else {
             setSearchValue("Tamu Undangan");
         }
 
-    }, [slug]);
-
-    const toggleMusic = () => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        if (isPlaying) {
-            audio.pause();
-            setIsPlaying(false);
-        } else {
-            audio.play();
-            setIsPlaying(true);
-        }
-    };
-
-    useEffect(() => {
-        const onScroll = () => setShowNav(window.scrollY > 100);
-        window.addEventListener('scroll', onScroll);
-        document.documentElement.style.scrollBehavior = "smooth";
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
-
-    useEffect(() => {
         if (isLightboxOpen) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'auto';
         }
 
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isLightboxOpen]);
+        const onScroll = () => setShowNav(window.scrollY > 100);
+        window.addEventListener('scroll', onScroll);
+        document.documentElement.style.scrollBehavior = "smooth";
 
-
-    useEffect(() => {
         if (!config || !config.event_run) return;
 
         const targetDate = new Date(config.event_run + 'T00:00:00');
@@ -122,12 +93,35 @@ export default function Home() {
             setSeconds(Math.floor((distance / 1000) % 60));
         };
 
-
-
         updateCountdown();
         const interval = setInterval(updateCountdown, 1000);
-        return () => clearInterval(interval);
-    }, []);
+        clearInterval(interval);
+
+    }, [slug, isLightboxOpen, config]);
+
+    const toggleMusic = () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        console.log("test")
+
+        if (isPlaying) {
+            audio.pause();
+            setIsPlaying(false);
+        } else {
+            audio.play();
+            setIsPlaying(true);
+        }
+    };
+
+    const toggleOpen = () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        audio.play();
+        setIsPlaying(true);
+        setOpen(true)
+    };
 
     if (isBe) {
         return <div className="min-h-screen flex items-center justify-center gap-2">
@@ -146,6 +140,7 @@ export default function Home() {
     return (
         <>
             <main className="h-full m-0 overflow-hidden bg-gray-100">
+                <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
                 <div className='relative flex items-center'>
                     <div className={`${plus_jakarta_sans.className} md:hidden`}>
                         {!isOpen ?
@@ -173,10 +168,7 @@ export default function Home() {
                                         <p className="text-xl font-semibold tracking-wider my-2">{searchValue}</p>
                                         <p className="text-xs text-balance mb-3">Tanpa Mengurangi Rasa Hormat, Kami Mengundang Anda Untuk Hadir Di Acara Pernikahan Kami.</p>
                                         <button
-                                            onClick={() => {
-                                                setOpen(true)
-                                                toggleMusic
-                                            }}
+                                            onClick={toggleOpen}
                                             className="hover:bg-[#7c6533c0] flex items-center font-semibold mx-auto gap-2 bg-[#7C6533] text-white py-2 px-4 rounded-full my-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                                                 <path d="M19.5 22.5a3 3 0 0 0 3-3v-8.174l-6.879 4.022 3.485 1.876a.75.75 0 1 1-.712 1.321l-5.683-3.06a1.5 1.5 0 0 0-1.422 0l-5.683 3.06a.75.75 0 0 1-.712-1.32l3.485-1.877L1.5 11.326V19.5a3 3 0 0 0 3 3h15Z" />
@@ -411,11 +403,11 @@ export default function Home() {
                                     </motion.div>
                                 </AnimatePresence>
                             )}
+
                         {showNav && (
                             <div className={`${isLightboxOpen ? 'z-5' : 'z-50'} fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4`}>
                                 {/* Tombol Musik */}
                                 <div>
-                                    <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
                                     <button
                                         onClick={toggleMusic}
                                         className="bg-[#7C6533] text-white backdrop-blur-md p-2 rounded-full shadow-lg"
