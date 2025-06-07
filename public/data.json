@@ -1,20 +1,23 @@
-{
-  "man": "Dwi aji Saputra",
-  "nick_man": "Aji",
-  "parent_man": "Putra Bpk. Susilo - Ibu Demah",
-  "addr_man": "Klampok - Wanasari - Brebes",
-  "men": "Mastiroh",
-  "parent_men": "Putri Bpk. Sutono (Alm) - Ibu Wastikah",
-  "addr_men": "Ketanggungan - Ketanggungan - Brebes",
-  "nick_men": "iroh",
-  "ijab_date": "Sabtu, 14 Juni 2025",
-  "ijab_time": "09:00 WIB",
-  "ijab_place": "Di Kediaman Mempelai Wanita",
-  "event_day": "Sabtu Malam Minggu",
-  "event_date": "14 - 15 Juni 2025",
-  "event_run": "2025-06-14",
-  "event_time": "10:00 WIB - Selesai",
-  "event_place": "Di Kediaman Mempelai Wanita",
-  "gift" : ["BCA Dwi Aji Saputra 1310704667","BRI Mastiroh 106101018792507"],
-  "loc": "https://www.google.com/maps?q=-6.9284172,108.8898493"
-}
+[
+  {
+    "name": "iroh-aji",
+    "man": "Dwi aji Saputra",
+    "nick_man": "Aji",
+    "parent_man": "Putra Bpk. Susilo - Ibu Demah",
+    "addr_man": "Klampok - Wanasari - Brebes",
+    "men": "Mastiroh",
+    "parent_men": "Putri Bpk. Sutono (Alm) - Ibu Wastikah",
+    "addr_men": "Ketanggungan - Ketanggungan - Brebes",
+    "nick_men": "iroh",
+    "ijab_date": "Sabtu, 14 Juni 2025",
+    "ijab_time": "09:00 WIB",
+    "ijab_place": "Di Kediaman Mempelai Wanita",
+    "event_day": "Sabtu Malam Minggu",
+    "event_date": "14 - 15 Juni 2025",
+    "event_run": "2025-06-14",
+    "event_time": "10:00 WIB - Selesai",
+    "event_place": "Di Kediaman Mempelai Wanita",
+    "gift": ["BCA Dwi Aji Saputra 1310704667", "BRI Mastiroh 106101018792507"],
+    "loc": "https://www.google.com/maps?q=-6.9284172,108.8898493"
+  }
+]
