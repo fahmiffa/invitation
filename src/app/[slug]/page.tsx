@@ -33,6 +33,7 @@ export default function Home() {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [searchValue, setSearchValue] = useState('');
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -89,6 +90,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
+        console.log(isLightboxOpen);
         if (isLightboxOpen) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -149,7 +151,7 @@ export default function Home() {
     return (
         <>
             <main className="h-full m-0 overflow-hidden bg-gray-100">
-            <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
+                <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
                 <div className='relative flex items-center'>
                     <div className={`${plus_jakarta_sans.className} md:hidden`}>
                         {!isOpen ?
@@ -372,7 +374,7 @@ export default function Home() {
                                                 className="absolute top-0 left-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat"
                                                 style={{ backgroundImage: "url('/open.jpg')" }}
                                             ></div>
-                                            <div className="relative z-10 h-screen py-10 text-black text-center">
+                                            <div className="relative z-20 h-screen py-10 text-black text-center">
                                                 <h1 className={`${merienda.className} text-3xl`}>Wedding Gift</h1>
                                                 <p className="text-balance my-3">
                                                     Doa Restu Anda merupakan karunia yang sangat berarti bagi kami.

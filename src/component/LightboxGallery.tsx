@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import Image from 'next/image';
 
 type LightboxGalleryProps = {
@@ -11,6 +12,11 @@ type LightboxGalleryProps = {
 
 export default function LightboxGallery({ images, isOpen, setIsOpen }: LightboxGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openLightbox = (index: number) => {
     setCurrentIndex(index);
@@ -29,6 +35,55 @@ export default function LightboxGallery({ images, isOpen, setIsOpen }: LightboxG
     setCurrentIndex((currentIndex + 1) % images.length);
   };
 
+  const lightboxElement = (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999]"
+      onClick={closeLightbox}
+    >
+      <button
+        className="absolute top-6 right-6 text-white text-3xl font-bold"
+        onClick={(e) => {
+          e.stopPropagation();
+          closeLightbox();
+        }}
+      >
+        &times;
+      </button>
+
+      <button
+        className="absolute left-6 text-white text-4xl font-bold"
+        onClick={(e) => {
+          e.stopPropagation();
+          prevImage();
+        }}
+      >
+        &#10094;
+      </button>
+
+      <div
+        className="relative w-40 h-48 mx-auto my-5 shadow-md rounded-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Image
+          fill
+          src={images[currentIndex]}
+          alt={`Image ${currentIndex + 1}`}
+          className="object-cover rounded-2xl"
+        />
+      </div>
+
+      <button
+        className="absolute right-6 text-white text-4xl font-bold"
+        onClick={(e) => {
+          e.stopPropagation();
+          nextImage();
+        }}
+      >
+        &#10095;
+      </button>
+    </div>
+  );
+
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4">
@@ -46,41 +101,9 @@ export default function LightboxGallery({ images, isOpen, setIsOpen }: LightboxG
         ))}
       </div>
 
-      {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50" onClick={closeLightbox}>
-          <button className="absolute top-6 right-6 text-white text-3xl font-bold" onClick={(e) => {
-            e.stopPropagation();
-            closeLightbox();
-          }}>
-            &times;
-          </button>
-
-          <button className="absolute left-6 text-white text-4xl font-bold" onClick={(e) => {
-            e.stopPropagation();
-            prevImage();
-          }}>
-            &#10094;
-          </button>
-
-          <div className="relative w-40 h-48 mx-auto my-5 shadow-md rounded-2xl overflow-hidden">
-            <Image
-              fill
-              src={images[currentIndex]}
-              alt={`Image ${currentIndex + 1}`}
-              className="object-cover rounded-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-
-          </div>
-
-          <button className="absolute right-6 text-white text-4xl font-bold" onClick={(e) => {
-            e.stopPropagation();
-            nextImage();
-          }}>
-            &#10095;
-          </button>
-        </div>
-      )}
+      {mounted && isOpen && typeof window !== 'undefined'
+        ? ReactDOM.createPortal(lightboxElement, document.body)
+        : null}
     </>
   );
 }
