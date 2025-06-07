@@ -59,6 +59,10 @@ export default function Home() {
         if (toParam) {
             setSearchValue(toParam);
         }
+        else
+        {
+            setSearchValue("Tamu Undangan");
+        }
 
     }, [slug]);
 
