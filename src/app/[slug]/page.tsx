@@ -33,7 +33,6 @@ export default function Home() {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [searchValue, setSearchValue] = useState('');
-    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -88,19 +87,6 @@ export default function Home() {
         document.documentElement.style.scrollBehavior = "smooth";
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
-
-    useEffect(() => {
-        console.log(isLightboxOpen);
-        if (isLightboxOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isLightboxOpen]);
 
 
     useEffect(() => {
