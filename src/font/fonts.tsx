@@ -1,4 +1,4 @@
-import { Merienda, Imperial_Script, Great_Vibes, Roboto, Inter, Plus_Jakarta_Sans, Cookie } from "next/font/google";
+import { Merienda, Imperial_Script, Great_Vibes, Roboto, Inter, Plus_Jakarta_Sans, Cookie, Dynalight } from "next/font/google";
 
 const merienda = Merienda({
     weight: '700',
@@ -47,4 +47,11 @@ const roboto = Roboto({
     display: 'swap',
 });
 
-export { merienda, great, roboto, imperial, inter, plus_jakarta_sans, cookie }
+const dynalight = Dynalight({
+        weight: '400',
+    subsets: ['latin'],
+    variable: '--font-roboto',
+    display: 'swap',
+});
+
+export { merienda, great, roboto, imperial, inter, plus_jakarta_sans, cookie, dynalight }

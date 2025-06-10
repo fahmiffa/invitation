@@ -7,10 +7,11 @@ import Image from 'next/image';
 type LightboxGalleryProps = {
   images: string[];
   isOpen: boolean;
+  isData: String;
   setIsOpen: (open: boolean) => void;
 };
 
-export default function LightboxGallery({ images, isOpen, setIsOpen }: LightboxGalleryProps) {
+export default function LightboxGallery({ images, isOpen, isData, setIsOpen }: LightboxGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
 
@@ -66,7 +67,7 @@ export default function LightboxGallery({ images, isOpen, setIsOpen }: LightboxG
       >
         <Image
           fill
-          src={images[currentIndex]}
+          src={`/data/${isData}/${images[currentIndex]}`}
           alt={`Image ${currentIndex + 1}`}
           className="object-cover rounded-2xl"
         />
@@ -91,7 +92,7 @@ export default function LightboxGallery({ images, isOpen, setIsOpen }: LightboxG
           <button key={index} onClick={() => openLightbox(index)}>
             <div className="relative w-40 h-48 mx-auto my-5 shadow-md rounded-2xl overflow-hidden">
               <Image
-                src={src}
+                src={`/data/${isData}/${src}`}
                 fill
                 alt={`Image ${index + 1}`}
                 className="object-cover rounded-2xl"

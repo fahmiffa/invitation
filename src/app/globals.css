@@ -19,6 +19,30 @@
   }
 }
 
+.bg-zero {
+  background-color: #3d2b1f;
+}
+
+.text-zero {
+  color: #3b3c36;
+}
+
+.bg-one {
+  background-color: #ab274f;
+}
+
+.text-one {
+  color: #58111a;
+}
+
+.text-two {
+  color: #2A2E45;
+}
+
+.bg-two {
+  background-color: #2A2E45;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
