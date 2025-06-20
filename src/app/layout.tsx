@@ -11,6 +11,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Undangan Online, Digital, Web',
+  description: 'Jasa Undangan Oline free (gratis) & Premium',
+  icons: {
+    icon: "/window.svg",
+  },
+  openGraph: {
+    title: `Undangan Online, Digital dan Web`,
+    description: "Jasa Undangan Oline free & Premium, Brebes",
+    type: "website",
+    images: [
+      {
+        url: `/one.png`,
+        width: 1200,
+        height: 630,
+        alt: "Preview Undangan",
+      },
+    ],
+  },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{

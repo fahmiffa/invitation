@@ -27,6 +27,14 @@
   color: #3b3c36;
 }
 
+.bg-papat {
+  background-color: #3D2B1F;
+}
+
+.text-papat {
+  color: #3D2B1F;
+}
+
 .bg-one {
   background-color: #ab274f;
 }
@@ -36,11 +44,19 @@
 }
 
 .text-two {
-  color: #2A2E45;
+  color: #2a2e45;
 }
 
 .bg-two {
-  background-color: #2A2E45;
+  background-color: #2a2e45;
+}
+
+.bg-telu {
+  background-color: #2a2e45;
+}
+
+.text-telu {
+  color: #2a2e45;
 }
 
 body {
