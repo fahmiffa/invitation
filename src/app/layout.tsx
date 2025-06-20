@@ -12,7 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 import type { Metadata } from 'next'
-const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
+// const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
+const domain = process.env.NEXT_PUBLIC_BASE_URL || "https://undangan.qrana.biz.id";
 
 export const metadata: Metadata = {
   title: 'Undangan Online, Digital, Web',
