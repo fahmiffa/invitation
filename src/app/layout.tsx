@@ -12,6 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 import type { Metadata } from 'next'
+const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
 
 export const metadata: Metadata = {
   title: 'Undangan Online, Digital, Web',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `/one.png`,
+        url: `${domain}/one.png`,
         width: 1200,
         height: 630,
         alt: "Preview Undangan",

@@ -5,21 +5,18 @@ import TwoPage from './twoPage';
 import TeluPage from './teluPage';
 import PapatPage from './papatPage';
 
-// const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+// const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
 const domain = process.env.NEXT_PUBLIC_BASE_URL || "https://undangan.qrana.biz.id";
 
 type Props = {
-    params: { slug: string };
-    searchParams?: { [key: string]: string | string[] | undefined };
-};
+  params: Promise<{ slug: string }>
+}
 
 export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     const slug = (await params).slug
-    console.log("slug", slug)
-    console.log(params.slug)
 
     try {
         const res = await fetch(`${domain}/data.json`);
@@ -62,7 +59,7 @@ export async function generateMetadata(
     }
 }
 
-export default async function Page({ params }: Props) {
+async function RenderPage({ params }: Props) {
     const slug = (await params).slug
     try {
         const res = await fetch(`${domain}/data.json`);
@@ -92,7 +89,10 @@ export default async function Page({ params }: Props) {
             return <PapatPage data={found} />
 
     } catch (err) {
-        return <div className='h-screen flex items-center justify-center text-7xl font-bold'></div>;
+        return <div>Terjadi kesalahan saat memuat data.</div>;
     }
 }
 
+export default function Page({ params }: Props) {
+    return <RenderPage params={params} />;
+}
