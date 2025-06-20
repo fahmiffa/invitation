@@ -1,7 +1,7 @@
 'use client';
 import { AnimatePresence, motion, useCycle } from "motion/react"
 import { useState, useEffect, useRef } from 'react';
-import { merienda, roboto, inter, plus_jakarta_sans, cookie, dynalight } from '@/font/fonts';
+import { merienda, roboto, inter, plus_jakarta_sans, cookie } from '@/font/fonts';
 import Image from 'next/image';
 
 import LightboxGallery from '@/component/LightboxGallery';

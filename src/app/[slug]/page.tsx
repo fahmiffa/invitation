@@ -5,8 +5,8 @@ import TwoPage from './twoPage';
 import TeluPage from './teluPage';
 import PapatPage from './papatPage';
 
-const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000";
-// const domain = process.env.NEXT_PUBLIC_BASE_URL || "https://undangan.qrana.biz.id";
+// const domain = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const domain = process.env.NEXT_PUBLIC_BASE_URL || "https://undangan.qrana.biz.id";
 
 type Props = {
     params: { slug: string };
